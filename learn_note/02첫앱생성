@@ -1,0 +1,53 @@
+## 첫번째 APP 생성
+
+### website > __init__.py
+```python
+from flask import Flask
+
+def create_app():
+    app = Flask(__name__)
+    app.config['SECRET_KEY'] = 'semicircle_secret_key hollimoly guacamole roly poly'
+
+    return app
+```
+- Flask 앱을 만들기 위해 flask 모듈을 참조합니다.
+- 플라스크 APP을 초기화 하는 함수를 만듭니다. 인자는 `__name__` 변수
+    - `__name__` 은 현재 `__name__`이 작성된 파일명을 문자열로 저장하고 있거나 `__main__`이란 문자열 값을 저장한다. 
+    - 여기서 `__name__`을 설명하는 건 흐름을 크게 벗어나니 pass
+- `app.config`는 생성될 App의 비밀 키 값이다.
+    - 아무 의미없는 값을 넣어도 된다. 아니 그래야 한다!
+    - 일종의 암호화 또는 쿠키 및 세션 데이터 보호를 할 때 사용되는 값
+    - 설정하지 않아도 돌아가긴 한다.
+    - 자세한 암호화 원리는 흐름에 크게 벗어나기에, 진지하게 궁금하면 암호화 과정, 암호화 알고리즘 등을 검색하여 학습하길 바람.
+    - 지금은 학습하기 위해 공개되어있지만, 실제로 배포(서비스)할 때는 누구에게도 알려줘선 안된다.
+
+### main.py
+- website폴더(패키지)를 가져와서 Flask APP을 생성 후 실행
+
+```python
+from website import create_app
+
+app = create_app()
+
+if __name__ == "__main__":
+    app.run(debug=True)
+```
+- flask app을 생성합니다. 
+- 플라스크 앱, 즉 서버를 실행하는데 디버그 모드를 활성화하여 실행합니다.
+    - 디버그 모드를 활성화 하면 코드가 중간에 변경하고 저장할 때 자동으로 현재 서버를 재실행합니다.
+
+
+### `if __name__ == "__main__":`
+- 해당 if문 내부의 코드는
+    - 해당 파이썬 파일이 참조될 때는 실행하지 말고
+    - 자체적으로 실행. 즉 프로젝트의 시작 파일일 때만 실행하십시요.
+
+
+## main.py 실행
+- main.py를 열어놓은 상태에서 우측 상단의 재생 버튼을 클릭하거나
+- 터미널에서 가상환경 진입 후 `python main.py`를 입력
+- 메세지에서 `http://127.0.0.1:5000 `가 나올텐데 클릭 또는 웹에 입력해보자.
+
+### 지금 보이는 건 Not Found
+- 현재 만들어놓은 html파일도 없고 url세팅도 안했다.
+- 그래도 Not Found 화면을 보내줬다. 서버가 동작하고 있다는 증거.
