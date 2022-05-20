@@ -1,4 +1,8 @@
 ## 첫번째 APP 생성
+- 다음을 미리 알아보고 오시면 좋습니다.
+    - `__name__`
+    - `if __name__ == "__main__"`
+    - 파이썬의 모듈 참조(import)시 일어나는 과정
 
 ### website > __init__.py
 ```python
