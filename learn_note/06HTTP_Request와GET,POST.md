@@ -73,7 +73,43 @@ def sign_up():
 - `request` 를 참조.
     - 클라이언트 요청에 대한 데이터가 담겨있습니다.
 - `data = request.form` 로 form으로 입력한 데이터를 출력해봅시다.
+    - GET으로 요청할 땐 안나오고
+    - POST로 요청할 때만 값이 나온다.
 
 ```
 ImmutableMultiDict([('email', 'semi@gmail.com'), ('nickname', 'Hedge'), ('password1', 'asdf'), ('password2', 'asdf'), ('checked', 'on')])
 ```
+
+### POST 분기 생성 - auth.py
+```python
+@auth.route('/sign-up', methods=['GET', 'POST'])
+def sign_up():
+    if request.method == 'POST':
+        # form - input의 name 속성을 기준으로 가져오기
+        email = request.form.get('email')
+        nickname = request.form.get('nickname')
+        password1 = request.form.get('password1')
+        password2 = request.form.get('password2')
+
+        # 유효성 검사
+        if len(email) < 5 :
+            pass
+        elif len(nickname) < 2:
+            pass
+        elif password1 != password2 :
+            pass
+        elif len(password1) < 7:
+            pass
+        else:
+            pass  # Create User -> DB
+
+    
+    # 데이터 확인
+    data = request.form
+    print(data)
+    return render_template('sign_up.html')
+```
+- `request.method`의 값을 확인한다.
+- `form`태그 내부의 `input`들의 `name`의 값을 가져온다.
+- 이메일이 맞나? 싶은 검사. 유효성 검사를 한다.
+- 나머지 코드는 일단 유지
