@@ -25,3 +25,55 @@
 - 통신 후 데이터가 남는 형태는 POST 통신을 주로 사용합니다.
 - 데이터의 생산을 주된 복적으로 사용합니다.
 
+
+## POST로 회원가입 구현 - auth.py
+```python
+from flask import Blueprint, render_template
+
+auth = Blueprint('auth', __name__)
+
+@auth.route('/sign-in', methods=['GET', 'POST'])
+def sign_in():
+    return render_template('sign_in.html')
+
+@auth.route('/sign-out')
+def sign_out():
+    return render_template('sign_out.html')
+
+@auth.route('/sign-up', methods=['GET', 'POST'])
+def sign_up():
+    return render_template('sign_up.html')
+```
+-`route`에 `GET`,`POST` method로 통신됨을 추가합니다.
+- 나중에 'GET', 'POST' 인가에 따라서 분기를 줄 예정
+    - 회원가입 페이지에 접속했다 -> GET 통신
+    - 제출을 눌러 회원가입 신청을 했다 -> form:POST -> POST 통신
+
+### request로 POST로 요청된 값 확인 - auth.py
+```python
+from flask import Blueprint, render_template, request
+
+auth = Blueprint('auth', __name__)
+
+@auth.route('/sign-in', methods=['GET', 'POST'])
+def sign_in():
+    return render_template('sign_in.html')
+
+@auth.route('/sign-out')
+def sign_out():
+    return render_template('sign_out.html')
+
+@auth.route('/sign-up', methods=['GET', 'POST'])
+def sign_up():
+    # 데이터 확인
+    data = request.form
+    print(data)
+    return render_template('sign_up.html')
+```
+- `request` 를 참조.
+    - 클라이언트 요청에 대한 데이터가 담겨있습니다.
+- `data = request.form` 로 form으로 입력한 데이터를 출력해봅시다.
+
+```
+ImmutableMultiDict([('email', 'semi@gmail.com'), ('nickname', 'Hedge'), ('password1', 'asdf'), ('password2', 'asdf'), ('checked', 'on')])
+```
