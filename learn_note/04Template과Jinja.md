@@ -241,6 +241,13 @@ Description - SignIn <br/> Welcome!
 {% endblock %}
 ```
 
+## Jinja - url_for Flask 정적 파일용 폴더(static) 불러오기
+- 웹페이지는 사진, 동영상 등의 미디어 파일도 존재한다.
+- 또한 CSS, JS 파일도 필요하기도 하다.
+- 만일 `static/index.js`를 가져온다면
+    - `<script src="{{ url_for('static', filename='index.js')}}"></script>`
+    - `</body>` 바로 위에 작성하자.
+
 ## 더 많은 Jinja 템플릿 활용은 다음부터
 - Jinja로 반복문도 할 수 있고
 - list나 dict 타입의 데이터도 가져올 수 있고
