@@ -164,3 +164,84 @@ def sign_out():
 def sign_up():
     return render_template('sign_up.html')
 ```
+
+## Jinja - Variable : 파이썬애서 전달한 값 HTML에 표기하기
+- [ref. Jinja-Variables](https://jinja.palletsprojects.com/en/3.1.x/templates/#variables)
+- `render_template`함수에 인자를 더 넣어 원하는 값을 추가할 수 있다.
+
+### HTML에 활용할 데이터 담기 - auth.py, sign_in.html
+- (가정) SignIn 페이지에서 로그인한 유저 정보 표시
+
+```python
+@auth.route('/sign-in')
+def sign_in():
+    return render_template('sign_in.html', user="SemiCircle")
+```
+- user 매개변수에 "SemiCircle" 인자를 전달하였습니다.
+- 이러면 Jinja로 user 변수를 사용할 수 있습니다.
+- 무조건 user로 할 필요 없습니다. 짓고 싶은대로 지으면 전달됩니다.
+
+```html
+<!-- sign_in.html -->
+{% extends "base.html" %}
+{% block title %}Title - SignIn{% endblock %}
+{% block description %}
+Description - SignIn <br/>
+Welcome! {{user}}! Have a nice day!
+{% endblock %}
+```
+- 변수를 가져오려면 {{변수명}}
+    - 따라서 여기선 {{user}}
+- 다음처럼 응용할 수도 있습니다.
+    - `{{ "Dear. " + user }}`
+
+### sign-in.html에서 확인
+- 잘 나오는 것을 확인하고 넘어갑시다.
+
+
+## Jinja - if문 : 값에 따라 HTML에 표기법 바꾸기
+- [ref. Jinja - if](https://jinja.palletsprojects.com/en/3.1.x/templates/#if)
+- 데이터의 상태 또는 존재 유무에 따라 다르게 동작시켜보자.
+
+### 없는 변수를 {{변수이름}}으로 가져오려할 때
+- `sign-in`의 `render_template`에서 `user`를 삭제하고 접속해보자.
+
+```
+UndefinedError
+jinja2.exceptions.UndefinedError: 'user' is undefined
+```
+
+### Jinja2의 if 사용법
+- if 조건 : `{% if 조건 %}`
+- elif 조건 : {`% elif 조건 %}`
+- else : `{% else %}`
+- 마무리 : `{% endif %}`
+
+### 로그인/로그인 아닐 시 처리
+- 예시를 위해 if elif else 전부 활용해보았다.
+- 해당 변수가 있는 지 없는지 확인하는 방법은 여러가지 있는데, 파이썬의 None을 처리하는 원리와 유사하게 작성해보았다.
+    - [ref. 더 많은 예시](http://euhyeji.blogspot.com/2019/09/python-flask-jinja2-if.html)
+
+```html
+<!-- sign_in.html -->
+{% extends "base.html" %}
+{% block title %}Title - SignIn{% endblock %}
+{% block description %}
+Description - SignIn <br/> Welcome! 
+
+{% if user %}
+{{ "Dear. " + user }}! 
+{% elif not user %}
+"Dear. Anonymous! "
+{% else %}
+"Hacker"
+{%endif %}
+
+<br/>Have a nice day!
+{% endblock %}
+```
+
+## 더 많은 Jinja 템플릿 활용은 다음부터
+- Jinja로 반복문도 할 수 있고
+- list나 dict 타입의 데이터도 가져올 수 있고
+- filter, substring 등의 기능도 제공한다.
