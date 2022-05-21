@@ -47,7 +47,7 @@
 </html>
 ```
 
-### Jinja - block 기능 - base.html
+## Jinja - block 기능 - base.html
 - 테마가 될 base.html에 채워질 지역을 정의해줍니다.
 - 다른 페이지를 활용하여 채워지게될 빈칸을 만든다고 생각합시다.
 - 다음과 같이 표기합니다. 만일 빈칸을 만들고 그 빈칸의 이름을 `title`이라고 정한다면
@@ -71,7 +71,7 @@
 </html>
 ```
 
-### 상세 템플릿 생성 - home.html
+## 상세 템플릿 생성 - home.html
 - 대문 페이지에 사용될 home.html을 생성.
 - 먼저 기본 테마가 될 템플릿을 상속(extends)받습니다.
 - 이후 빈 칸에 대한 내용을 작성해줍니다.
@@ -118,4 +118,49 @@ def home():
     <h1>Description - Home</h1>
 </body>
 </html>
+```
+
+### 상세 페이지 - sign-in, sign-out, sign-up 페이지
+- `home.html`처럼 간단하게 페이지를 구현해놓는다. 
+
+```html
+<!-- sign_in.html -->
+{% extends "base.html" %}
+{% block title %}Title - SignIn{% endblock %}
+{% block description %}Description - SignIn{% endblock %}
+```
+
+```html
+<!-- sign_out.html -->
+{% extends "base.html" %}
+{% block title %}Title - SignOut{% endblock %}
+{% block description %}Description - SignOut{% endblock %}
+```
+
+```html
+<!-- sign_up.html -->
+{% extends "base.html" %}
+{% block title %}Title - SignUp{% endblock %}
+{% block description %}Description - SignUp{% endblock %}
+```
+
+### 렌더링 - auth.py
+- `render_template`함수 활용
+
+```python
+from flask import Blueprint, render_template
+
+auth = Blueprint('auth', __name__)
+
+@auth.route('/sign-in')
+def sign_in():
+    return render_template('sign_in.html')
+
+@auth.route('/sign-out')
+def sign_out():
+    return render_template('sign_out.html')
+
+@auth.route('/sign-up')
+def sign_up():
+    return render_template('sign_up.html')
 ```
