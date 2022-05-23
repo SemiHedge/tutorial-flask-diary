@@ -103,13 +103,10 @@ def sign_up():
         else:
             pass  # Create User -> DB
 
-    
-    # 데이터 확인
-    data = request.form
-    print(data)
+
     return render_template('sign_up.html')
 ```
 - `request.method`의 값을 확인한다.
 - `form`태그 내부의 `input`들의 `name`의 값을 가져온다.
-- 이메일이 맞나? 싶은 검사. 유효성 검사를 한다.
+- '이메일이 맞나?' 싶은 검사. 즉, 이메일에 대한 유효성 검사를 한다.
 - 나머지 코드는 일단 유지
