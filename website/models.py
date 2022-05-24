@@ -1,0 +1,15 @@
+from . import db  # from website import db
+from flask_login import UserMixin
+
+
+# define User Model
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    nickname = db.Column(db.String(80), unique=True, nullable=False)
+    password = db.Column(db.String(200))
+
+
+# define Note Model
+class Note(db.Model):
+    pass
