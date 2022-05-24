@@ -33,7 +33,7 @@ class Note(db.Model):
     - content, datetime
 
 
-## User 모델 정의
+## User 모델 정의 - models.py
 ```python
 from . import db  # from website import db
 from flask_login import UserMixin
@@ -64,7 +64,7 @@ class Note(db.Model):
         - "이것은 Flask-Login이 사용자 개체가 가질 것으로 기대하는 메서드에 대한 기본 구현을 제공합니다."
 - User 모델의 속성은 flask-sqlalchemy 예제를 참고했습니다.
     - [ref. flask-sqlalchemy > A Minimal Application](https://flask-sqlalchemy.palletsprojects.com/en/2.x/quickstart/#a-minimal-application)
-- 모델의 데이터 속성 정의 
+- User 모델 데이터 속성 정의 
     - `db.Column()`로 선언하고, 이에 알맞는 데이터 타입, 키설정, Null가능여부 등을 해준다.
         - id : Integer, primary_key
         - email : String, unique_key
@@ -87,3 +87,47 @@ class Note(db.Model):
         - `unique` : 유일키로 설정 여부
         - 그 외 등등
          
+
+## Note 모델 정의 - models.py
+- User모델을 참조하여 Note 모델도 정의
+
+```python
+from . import db  # from website import db
+from flask_login import UserMixin
+from sqlalchemy.sql import func
+
+
+# define User Model
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    nickname = db.Column(db.String(80), unique=True, nullable=False)
+    password = db.Column(db.String(200))
+
+
+# define Note Model
+class Note(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    content = db.Column(db.String(2000))
+    datetime = db.Column(db.DateTime(timezone=True), default=func.now())
+```
+- Note 모델 데이터 속성 정의
+    - id : Integer, 메모장의 고유번호(id). 기본키(primary_key)
+    - content : String, 메모장 내용, 글자 제한을 두지 않는다면 데이터 타입을 Text로 고려
+    - datetime : DateTime, 작성 시간. 이를 위해 DB가 타임 스탬프를 자체 계산하여 지시할 수 있도록 함수를 참조할 필요가 있었습니다.
+        - 때문에 `from sqlalchemy.sql import func`을 참조하고
+        - SQL에서 현재 시간 함수인 now()를 실행하도록 `func.now()`를 작성
+
+### 현재 시간 작성 datetime.utcnow vs func.now()
+- 파이썬으로 DB에 현재 시간을 작성한다면? 생각해볼 수 있는 것
+    - `from datetime import datetime`을 통한 `datetime.utcnow`
+        - [ref. flask-sqlalchemy > Simple Relationships](https://flask-sqlalchemy.palletsprojects.com/en/2.x/quickstart/#simple-relationships)
+    - `from sqlalchemy.sql import func`를 통한 `func.now()` 또는 ` func.current_timestamp()` (두 개는 사실 같은 함수)
+- `flask-sqlalchemy` 문서 내용이라 전자가 맞는 것 같은데, 후자를 권장함.
+    - 이유 : [ref. StackOverflow > SQLAlchemy default DateTime](https://stackoverflow.com/questions/13370317/sqlalchemy-default-datetime)
+        - "'데이터가 저장된 시각'이라는 측면에서는 웹 서버 애플리케이션(또는 앱)의 시간이 아닌 DB에 저장된 시간이 기록되어야 함"
+        - "클라이언트 시간으로 기록하기에는 네트워크 지원 등의 이유로 실제 DB에 저장된 시각과 차이가 있을 수 있음"
+        - 모든 데이터는 DB기준으로 기록되어야함.
+            - 예시 상황 : 한정판 티켓팅을 생각해보자. 사용자가 보는 화면을 기준으로 결과를 처리하고 이후에야 DB에 반영을 하면... DB 재고가 없는데도 구매 처리가 되버려서 -값을 가질 수도 있다. DB를 타고가는 건 DB입장을 우선적으로 생각하자.
+- [ref. SQLAlchemy > SQL and Generic Functions](https://docs.sqlalchemy.org/en/14/core/functions.html)
+    - "sqlalchemy.sql 함수는 데이터베이스별로 갖고있는 렌더링, 반환 유형 및 인수 동작 등을 활용할 수 있도록 합니다. `func` 속성을 사용하여 SQL이라면 일반적(공통적)으로 갖고있는 함수들을 호출(실행)시킵니다."
