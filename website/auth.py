@@ -25,7 +25,7 @@ def sign_in():
         else:
             flash('해당 이메일 정보가 없습니다.', category='error')
 
-    return render_template('sign_in.html')
+    return render_template('sign_in.html', user=current_user)
 
 @auth.route('/sign-out')
 @login_required
@@ -65,4 +65,4 @@ def sign_up():
             flash("회원가입 완료.", category="success")  # Create User -> DB
             return redirect(url_for('views.home'))
 
-    return render_template('sign_up.html')
+    return render_template('sign_up.html', user=current_user)
