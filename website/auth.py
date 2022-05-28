@@ -1,4 +1,7 @@
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, redirect, render_template, request, flash, url_for
+from werkzeug.security import generate_password_hash, check_password_hash
+from .models import User
+from . import db
 
 auth = Blueprint('auth', __name__)
 
@@ -29,7 +32,11 @@ def sign_up():
         elif len(password1) < 7:
             flash("비밀번호가 너무 짧습니다.", category="error")
         else:
+            # Create User > DB
+            new_user = User(email=email, nickname=nickname, password=generate_password_hash(password1, method='sha256'))
+            db.session.add(new_user)
+            db.session.commit()
             flash("회원가입 완료.", category="success")  # Create User -> DB
+            return redirect(url_for('views.home'))
 
-    
     return render_template('sign_up.html')
