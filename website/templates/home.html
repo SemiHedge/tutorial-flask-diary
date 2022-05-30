@@ -5,13 +5,29 @@ Title - Home
 {% endblock %}
 
 {% block content %}
+<!-- 메모 생성 영역 -->
 <form action="" method="post">
     <h2 align="center">Note</h2>
     <div class="form-floating">
-        <textarea name="note" class="form-control" placeholder="Leave a comment here" id="note"></textarea>
-        <label for="floatingTextarea">Comments</label>
+        <input name="note-title" type="text" class="form-control" id="note-title" placeholder="name@example.com">
+        <label for="note-title">Title</label>
+    </div>
+    <div class="form-floating">
+        <textarea name="note-comment" class="form-control" placeholder="Leave a comment here" id="note-comment"></textarea>
+        <label for="note-comment">Comment</label>
     </div>
     <button type="submit" class="btn btn-primary">메모 저장</button>
 </form>
 
+<!-- 메모 조회 영역 -->
+<div class="list-group">
+    {% for note in user.notes %}
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-2">{{note.title}}</h5>
+          <small class="text-muted">{{note.datetime}}/small>
+        </div>
+        <p class="mb-1">{{note.comment}}</p>
+    </a>  
+    {% endfor %}
 {% endblock %}
