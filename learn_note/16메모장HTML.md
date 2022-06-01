@@ -10,7 +10,7 @@
 
 - 어떤 기능이 수행될 지 생각해볼 때 기본적으로 CRUD를 고려해보고 그 다음 확장해보는 것을 추천한다.
 
-## C : 메모 생성 영역 HTML 생성 - home.html
+## Create : 메모 생성 영역 HTML 생성 - home.html
 - `<form>` 태그와 POST통신으로 메모를 전송할 예정이다.
 - bootstrap의 예를 참조
     - [ref. bootstrap 5 > form](https://getbootstrap.com/docs/5.0/forms/overview/#overview)
@@ -47,7 +47,7 @@ Title - Home
 - 메모 저장 `button` 생성
 
 
-## 메모 조회 영역 HTML 생성 - home.html 
+## Read : 메모 조회 영역 HTML 생성 - home.html 
 - 부트스트랩의 `list-group`을 사용할 예정
     - [ref. bootstrap5 > list-group > custom-content](https://getbootstrap.com/docs/5.0/components/list-group/#custom-content)
 
@@ -79,7 +79,7 @@ Title - Home
     <a href="#" class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-2">{{note.title}}</h5>
-          <small class="text-muted">{{note.datetime}}/small>
+          <small class="text-muted">{{note.datetime}}</small>
         </div>
         <p class="mb-1">{{note.content}}</p>
     </a>  
@@ -89,4 +89,5 @@ Title - Home
 
 ## 직접 확인해보기
 - 현재는 메모 생성 영역만 보인다.
+    - 생성 버튼을 눌러도 이를 처리할 View를 구현하지 않았다.
 - 메모가 없기 때문에 jinja:for문이 돌지 않는다.
