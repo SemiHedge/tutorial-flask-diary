@@ -30,7 +30,7 @@ class Note(db.Model):
     - email, password, nickname
 - Note
     - id : 메모 데이터를 구분하기위한 유일 값. 기본키(primary_key)
-    - content, datetime
+    - title, content, datetime
 
 
 ## User 모델 정의 - models.py
@@ -108,11 +108,13 @@ class User(db.Model, UserMixin):
 # define Note Model
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key = True)
+    title = db.Column(db.String(50))
     content = db.Column(db.String(2000))
     datetime = db.Column(db.DateTime(timezone=True), default=func.now())
 ```
 - Note 모델 데이터 속성 정의
     - id : Integer, 메모장의 고유번호(id). 기본키(primary_key)
+    - title : String, 메모의 제목
     - content : String, 메모장 내용, 글자 제한을 두지 않는다면 데이터 타입을 Text로 고려
     - datetime : DateTime, 작성 시간. 이를 위해 DB가 타임 스탬프를 자체 계산하여 지시할 수 있도록 함수를 참조할 필요가 있었습니다.
         - 때문에 `from sqlalchemy.sql import func`을 참조하고

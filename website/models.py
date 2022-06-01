@@ -15,6 +15,7 @@ class User(db.Model, UserMixin):
 # define Note Model
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key = True)
+    title = db.column(db.string(50))
     content = db.Column(db.String(2000))
     datetime = db.Column(db.DateTime(timezone=True), default=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

@@ -33,8 +33,8 @@ Title - Home
         <label for="note-title">Title</label>
     </div>
     <div class="form-floating">
-        <textarea name="note-comment" class="form-control" placeholder="Leave a comment here" id="note-comment"></textarea>
-        <label for="note-comment">Comment</label>
+        <textarea name="note-content" class="form-control" placeholder="Leave a content here" id="note-content"></textarea>
+        <label for="note-content">Content</label>
     </div>
     <button type="submit" class="btn btn-primary">메모 저장</button>
 </form>
@@ -43,7 +43,7 @@ Title - Home
 - `h2`로 메모 페이지임을 표시
 - `form:post`를 생성
 - `input`의 name과 id를 "note-title". 이에 맞게 `label:for`도 변경
-- `textarea`의 name과 id를 "note-comment"로 변경. 이에 맞게 `label:for`도 변경
+- `textarea`의 name과 id를 "note-content"로 변경. 이에 맞게 `label:for`도 변경
 - 메모 저장 `button` 생성
 
 
@@ -67,8 +67,8 @@ Title - Home
         <label for="note-title">Title</label>
     </div>
     <div class="form-floating">
-        <textarea name="note-comment" class="form-control" placeholder="Leave a comment here" id="note-comment"></textarea>
-        <label for="note-comment">Comment</label>
+        <textarea name="note-content" class="form-control" placeholder="Leave a content here" id="note-content"></textarea>
+        <label for="note-content">Content</label>
     </div>
     <button type="submit" class="btn btn-primary">메모 저장</button>
 </form>
@@ -81,7 +81,7 @@ Title - Home
           <h5 class="mb-2">{{note.title}}</h5>
           <small class="text-muted">{{note.datetime}}/small>
         </div>
-        <p class="mb-1">{{note.comment}}</p>
+        <p class="mb-1">{{note.content}}</p>
     </a>  
     {% endfor %}
 {% endblock %}

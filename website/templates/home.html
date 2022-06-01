@@ -13,8 +13,8 @@ Title - Home
         <label for="note-title">Title</label>
     </div>
     <div class="form-floating">
-        <textarea name="note-comment" class="form-control" placeholder="Leave a comment here" id="note-comment"></textarea>
-        <label for="note-comment">Comment</label>
+        <textarea name="note-content" class="form-control" placeholder="Leave a content here" id="note-content"></textarea>
+        <label for="note-content">Content</label>
     </div>
     <button type="submit" class="btn btn-primary">메모 저장</button>
 </form>
@@ -27,7 +27,7 @@ Title - Home
           <h5 class="mb-2">{{note.title}}</h5>
           <small class="text-muted">{{note.datetime}}/small>
         </div>
-        <p class="mb-1">{{note.comment}}</p>
+        <p class="mb-1">{{note.content}}</p>
     </a>  
     {% endfor %}
 {% endblock %}
