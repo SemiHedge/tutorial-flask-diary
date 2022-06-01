@@ -28,6 +28,13 @@ Title - Home
           <small class="text-muted">{{note.datetime}}</small>
         </div>
         <p class="mb-1">{{note.content}}</p>
+        
+        <!-- 메모 삭제 버튼 -->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-primary" type="button">수정</button>
+            <button class="btn btn-primary" type="button" onclick="deleteNote({{note.id}})">삭제</button>
+        </div>
     </a>  
     {% endfor %}
+</div>
 {% endblock %}

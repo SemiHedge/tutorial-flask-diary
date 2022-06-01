@@ -84,6 +84,7 @@ Title - Home
         <p class="mb-1">{{note.content}}</p>
     </a>  
     {% endfor %}
+</div>
 {% endblock %}
 ```
 
