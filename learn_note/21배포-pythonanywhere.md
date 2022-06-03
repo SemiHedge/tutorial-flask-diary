@@ -70,3 +70,13 @@ if project_home not in sys.path:
 # import flask app but need to call it "application" for WSGI to work
 from main import app as application  # noqa
 ```
+
+###  만일 4번 6번의 순서를 바꿔서 실행했다면?
+- Repository에서 최신 커밋 정보를 가져와서 HEAD를 옮긴 후 Pull
+
+1. `git fetch --all`
+    - `git pull`을 하기 위해서 깃허브의 repository에서 커밋 정보를 확인
+2. `git reset --hard origin/main`
+    - `git reset`을 통해 `head`를 최신 commit을 가리킴
+3. `git pull`
+    - 최신 커밋으로 덮어쓰기
