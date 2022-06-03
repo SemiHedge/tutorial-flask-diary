@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
+import git
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
@@ -32,6 +33,15 @@ def create_app():
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))  # primary_key
+
+    # CD를 위한 route 적용
+    @app.route('/git-update', methods=['POST'])
+    def git_update():
+        repo = git.Repo('./learn-flask')
+        origin = repo.remotes.origin
+        repo.create_head('main', origin.refs.main).set_tracking_branch(origin.refs.main).checkout()
+        origin.pull()
+        return '', 200
 
     return app
 
