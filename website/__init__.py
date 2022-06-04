@@ -2,9 +2,20 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
-import git
+from flask_migrate import Migrate
+from sqlalchemy import MetaData
 
-db = SQLAlchemy()
+convention = {
+    "ix": 'ix_%(column_0_label)s',
+    "uq": "uq_%(table_name)s_%(column_0_name)s",
+    "ck": "ck_%(table_name)s_%(constraint_name)s",
+    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+    "pk": "pk_%(table_name)s"
+}
+
+metadata = MetaData(naming_convention=convention)
+db = SQLAlchemy(metadata=metadata)
+
 DB_NAME = "database.db"
 
 def create_app():
@@ -33,6 +44,9 @@ def create_app():
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))  # primary_key
+
+    # Flask-Migrate 적용
+    migrate = Migrate(app, db, render_as_batch=True)
 
     return app
 
