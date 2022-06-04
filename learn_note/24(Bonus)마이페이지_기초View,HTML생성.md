@@ -17,7 +17,7 @@ def mypage():
 
 
 # 나의 정보 수정 페이지
-@mypage_views.route('/mypage-update', methods=['GET','POST'])
+@mypage_views.route('/mypage/update', methods=['GET','POST'])
 @login_required
 def mypage_update():
     return render_template('mypage_update.html', user=current_user)
@@ -68,6 +68,12 @@ def create_app():
 - 플라스크 앱에 적용 : `app.register_blueprint(mypage_views, url_prefix='/')`
 
 ### (선택) url_prefix 사용하기
+- 일부러 `/mypage`, `mypage/update` 로 하여 공통 경로를 가지게해봤다.
+- 이 경우 다음처럼 변경할 수 있다.
+- `__init__.py` : `app.register_blueprint(mypage_views, url_prefix='/mypage')`
+- `mypage_views.py`
+    - `@mypage_views.route('/', methods=['GET','POST'])`
+    - `@mypage_views.route('/update', methods=['GET','POST'])`
 
 
 
