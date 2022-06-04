@@ -5,6 +5,8 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 from sqlalchemy import MetaData
 
+from website.mypage_views import mypage
+
 convention = {
     "ix": 'ix_%(column_0_label)s',
     "uq": "uq_%(table_name)s_%(column_0_name)s",
@@ -27,10 +29,12 @@ def create_app():
     # 블루프린트 인스턴스 가져오기
     from .views import views
     from .auth import auth
+    from .mypage_views import mypage_views
 
     # 플라스크 앱에 등록하기
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
+    app.register_blueprint(mypage_views, url_prefix='/')
 
     # DB에 사용할 모델 불러오기
     from .models import User, Note  # from .models import *
