@@ -4,7 +4,7 @@
     - `nickname = db.Column(db.String(80), unique=True, nullable=False)`
     - 중복 닉네임이 없는지 확인해야함
 
-## 비밀번호 변경 HTML 추가하기
+## 비밀번호 변경 HTML 추가하기 - mypage_update.html
 - 다른 페이지(sign_in.html, sing_up.html) 참고
 ```html
 <div class="mb-3">
@@ -13,7 +13,7 @@
 </div>
 ```
 
-## 이메일은 변경 못하게 fieldset:disabled 추가
+- 이메일은 변경 못하게 `fieldset:disabled` 추가
 ```html
 <fieldset disabled="disabled">
     <div class="mb-3">
@@ -137,3 +137,4 @@ def mypage_update():
 - db에 최종 적용하는 `db.session.commit()`
 - 그런데 이미지, 닉네임, 비밀번호 중 하나라도 저장시 에러가 날 땐 처리를 안한다면 rollback을 적용하자.
     - `db.session.rollback()`
+- 여기선 그냥 넘어갑니다.
