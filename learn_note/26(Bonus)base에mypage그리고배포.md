@@ -1,3 +1,7 @@
+## base.html에 mypage 메뉴
+- 로그인할 때만 보이도록 하자
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,3 +75,24 @@
     <script src="{{ url_for('static', filename='index.js')}}"></script>
 </body>
 </html>
+```
+
+## Pythonanywhere에 재배포
+- github에 프로젝트를 관리하고 있다고 가정
+- 로컬 PC의 라이브러리 정보를 저장한다.
+    - `pip3 freeze > requirements.txt`
+- Github에 현재 상황을 `PUSH`한다.
+- Pythonanywhere의 Console에서 
+    - `git pull` : 최신 코드로 가져오고
+    - `pip3 install -r requiremnets.txt` 로 라이브러리 설치
+        - `Flask-Migrate` 등을 설치했으므로
+    - `export FLASK_APP=main.py` , `flask db upgrade` 로 db 새로 반영
+        - `migrations`폴더도 같이 올렸으므로
+        - 만일 에러가 난다면 그래도 확인해보고, 적용이 안되었다면 다시 생성하자
+            - `migrations` 폴더 삭제
+            - `flask db init`, `flask db migrate`, `flask db upgrade`
+
+## (주의) 이미 유저가 확보된 서비스라면 DB 백업본을 미리 만들거나 다운받아두자
+- Github에 올릴 때 DB파일은 빼는 게 보통
+    - 로컬 PC는 임시 데이터, 실제 돌아가는 서비스와는 별개의 DB
+- 기존 서비스에 돌아가는 곳에 DB를 덮어버린다면? > 유저 정보 증발
