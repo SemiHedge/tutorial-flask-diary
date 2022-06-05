@@ -10,7 +10,7 @@ class User(db.Model, UserMixin):
     nickname = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(200))
     notes = db.relationship('Note')
-    image_path = db.Column(db.String(255), unique=True, nullable=True, default='')
+    image_path = db.Column(db.String(255), unique=True, nullable=True)
 
 
 # define Note Model
@@ -20,4 +20,3 @@ class Note(db.Model):
     content = db.Column(db.String(2000))
     datetime = db.Column(db.DateTime(timezone=True), default=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    

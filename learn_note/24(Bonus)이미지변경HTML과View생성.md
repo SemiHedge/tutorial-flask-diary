@@ -304,40 +304,44 @@ def mypage_update():
 
     # 나의 정보 수정 요청 확인
     if request.method == 'POST':
+        changed = False # 변경 여부가 있는 지 확인
+
         # 이미지 파일 정보가 있는 지 확인
         if 'imageFile' in request.files:
             image_file = request.files['imageFile']  # 디버그 모드로 확인
 
-            # 허용된 파일 인지 확인
-            if image_file and allowed_file(image_file.filename):
-                filename = secure_filename(image_file.filename)
-                filetype = filename.rsplit('.', 1)[1].lower()
-                image_path = f'{os.path.dirname(__file__)}/static/'  # ../website/static/
+            # 파일이 존재하는지 확인
+            if image_file.filename:
+                # 허용된 파일인지 확인
+                if allowed_file(image_file.filename):
+                    filename = secure_filename(image_file.filename)
+                    filetype = filename.rsplit('.', 1)[1].lower()
+                    image_path = f'{os.path.dirname(__file__)}/static/'  # ../website/static/
 
-                # user id로 프로필 명 저장
-                image_file.save(f'{image_path}{current_user.id}.{filetype}')
-                
-                # DB user.image_path에 반영
-                user = User.query.get(current_user.id)
-                user.image_path = f'{current_user.id}.{filetype}'
-                db.session.commit()
-
-                return redirect(url_for('mypage_views.mypage'))
-            else:
-                # 확장자가 허용되지 않음
-                flash('이미지 파일은 png jpg jepg gif 만 지원합니다.', category = "error")
-                return redirect(request.url)
-
+                    # user id로 프로필 명 저장
+                    image_file.save(f'{image_path}{current_user.id}.{filetype}')
+                    
+                    # DB user.image_path에 반영
+                    user = User.query.get(current_user.id)
+                    user.image_path = f'{current_user.id}.{filetype}'
+                    db.session.commit()
+                    
+                    return redirect(url_for('mypage_views.mypage'))
+                else:
+                    # 확장자가 허용되지 않음
+                    flash('이미지 파일은 png jpg jepg gif 만 지원합니다.', category = "error")
+                    return redirect(request.url)
         
     return render_template('mypage_update.html', user=current_user)
 
 ```
 - 참조 : `from werkzeug.utils import secure_filename` ,  `import os`
 - 허용 이미지 목록 : `ALLOWED_EXTENSIONS = ['png','jpg','jpeg','gif']`
-- 허용 이미지 여부 확인 : `def allowed_file(filename):`
-- 첨부된 이미지가 있는지 확인 : `if 'imageFile' in request.files:`
+- 허용 이미지 여부 확인 함수 : `def allowed_file(filename):`
+- 첨부된 이미지가 있는지 확인 : `if image_file.filename:`
     - 디버그 모드를 보면 requests.files가 있다.
         - 내부에 input에 name을 준 'imageFile`이 있다.
+- 허용된 이미지인지 확인 : `if allowed_file(image_file.filename):`
 - 첨부된 파일 이름, 파일 타입, 저장할 이미지 주소를 저장한다.
     - 참고 예제처럼 flask app을 가져올 수 없으니 다른 방법으로 경로 계산
     - `./website/static` 을 하거나 `f'{os.path.dirname(__file__)}/static'`
