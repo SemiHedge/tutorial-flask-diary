@@ -129,8 +129,6 @@ def sign_up():
 </html>
 ```
 - `<!-- Message Flashing -->`를 확인하세요.
-- `&times;`는 곱하기 X를 표현하는 HTML 엔티티입니다. 엑스버튼을 간단히 구현할 때 사용합니다.
-    - [ref. HTML CharRef](https://dev.w3.org/html5/html-author/charref)
 - 부트스트랩 5.2.0의 alert을 활용했습니다.
     - [ref. Bootstrap - Alerts](https://getbootstrap.com/docs/5.2/components/alerts/)
     - 부트스트랩은 클래스별로 디자인이 달라서 여러 상황에 맞게 다른 색깔을 제공할 수 있습니다.
