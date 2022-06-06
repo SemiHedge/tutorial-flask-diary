@@ -80,3 +80,4 @@ from main import app as application  # noqa
     - `git reset`을 통해 `head`를 최신 commit을 가리킴
 3. `git pull`
     - 최신 커밋으로 덮어쓰기
+

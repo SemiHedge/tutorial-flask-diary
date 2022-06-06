@@ -95,7 +95,7 @@ class Note(db.Model):
 from . import db  # from website import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
-
+from datetime import datetime
 
 # define User Model
 class User(db.Model, UserMixin):
@@ -110,15 +110,15 @@ class Note(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(50))
     content = db.Column(db.String(2000))
-    datetime = db.Column(db.DateTime(timezone=True), default=func.now())
+    datetime = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now())
 ```
 - Note 모델 데이터 속성 정의
     - id : Integer, 메모장의 고유번호(id). 기본키(primary_key)
     - title : String, 메모의 제목
     - content : String, 메모장 내용, 글자 제한을 두지 않는다면 데이터 타입을 Text로 고려
-    - datetime : DateTime, 작성 시간. 이를 위해 DB가 타임 스탬프를 자체 계산하여 지시할 수 있도록 함수를 참조할 필요가 있었습니다.
-        - 때문에 `from sqlalchemy.sql import func`을 참조하고
-        - SQL에서 현재 시간 함수인 now()를 실행하도록 `func.now()`를 작성
+    - datetime : 작성된 시간, 또는 수정된 시간
+        - `default`로 작성된 시간 기록
+        - `onupdate`는 해당 정보가 수정될 때마다 업데이트 되도록 하는 인수
 
 ### 현재 시간 작성 datetime.utcnow vs func.now()
 - 파이썬으로 DB에 현재 시간을 작성한다면? 생각해볼 수 있는 것
