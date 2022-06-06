@@ -304,8 +304,6 @@ def mypage_update():
 
     # 나의 정보 수정 요청 확인
     if request.method == 'POST':
-        changed = False # 변경 여부가 있는 지 확인
-
         # 이미지 파일 정보가 있는 지 확인
         if 'imageFile' in request.files:
             image_file = request.files['imageFile']  # 디버그 모드로 확인
