@@ -109,5 +109,5 @@
 ```
 git rm -r --cached .
 git add .
-git cmmit -m "clear git cache"
+git commit -m "clear git cache"
 ```
