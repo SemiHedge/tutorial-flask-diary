@@ -102,3 +102,12 @@
 # database file
 *.db
 ```
+
+### 만일 .gitignore에 적용했으나 제외가 안된다면?
+- 이미 한번 commit&push된 파일은 계속 반영된다. (캐시문제)
+    - [ref. gitignore가 적용되지 않을 때](https://sunnytdy.tistory.com/8)
+```
+git rm -r --cached .
+git add .
+git cmmit -m "clear git cache"
+```
