@@ -13,20 +13,20 @@ mypage_views = Blueprint('mypage_views', __name__)
 @mypage_views.route('/mypage', methods=['GET','POST'])
 @login_required
 def mypage():
-    return render_template('mypage.html', user=current_user)
+    return render_template('mypage.html')
 
 
 # 나의 정보 수정 페이지
 @mypage_views.route('/mypage/update', methods=['GET','POST'])
 @login_required
 def mypage_update():
-    return render_template('mypage_update.html', user=current_user)
+    return render_template('mypage_update.html')
 ```
 - blueprint 이름 : `mypage_views`
 - route : `/mypage`, `/mypage/update`
 - 둘 다 로그인 필수 페이지이니 
     - `@login_required`
-    - `render_template(..., user=current_user)`
+
 
 ### Blueprint 등록 - __init__.py
 ```python
@@ -285,7 +285,7 @@ mypage_views = Blueprint('mypage_views', __name__)
 @mypage_views.route('/', methods=['GET','POST'])
 @login_required
 def mypage():
-    return render_template('mypage.html', user=current_user)
+    return render_template('mypage.html')
 
 
 # 프로필 이미지 확장자 목록
@@ -330,7 +330,7 @@ def mypage_update():
                     flash('이미지 파일은 png jpg jepg gif 만 지원합니다.', category = "error")
                     return redirect(request.url)
         
-    return render_template('mypage_update.html', user=current_user)
+    return render_template('mypage_update.html')
 
 ```
 - 참조 : `from werkzeug.utils import secure_filename` ,  `import os`

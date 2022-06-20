@@ -11,7 +11,7 @@ mypage_views = Blueprint('mypage_views', __name__)
 @mypage_views.route('/', methods=['GET','POST'])
 @login_required
 def mypage():
-    return render_template('mypage.html', user=current_user)
+    return render_template('mypage.html')
 
 
 # 프로필 이미지 확장자 목록
@@ -96,4 +96,4 @@ def mypage_update():
             flash('변경 사항이 없습니다.', category = "error")
             return redirect(request.url)
         
-    return render_template('mypage_update.html', user=current_user)
+    return render_template('mypage_update.html')

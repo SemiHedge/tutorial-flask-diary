@@ -29,7 +29,7 @@ def home():
             return redirect(url_for('views.home')) # 없으면 메모 계속 생성
 
 
-    return render_template('home.html', user=current_user)
+    return render_template('home.html')
 
 
 # 메모 삭제 기능

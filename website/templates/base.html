@@ -16,7 +16,7 @@
         </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    {% if user.is_authenticated %}
+                    {% if current_user.is_authenticated %}
                     <!-- 로그인 되었을 때 -->
                     <li class="nav-item">
                         <a href="/" class="nav-link">Home</a>

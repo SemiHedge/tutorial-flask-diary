@@ -39,7 +39,7 @@ Title - Home
 
 <!-- 메모 조회 영역 -->
 <div class="list-group">
-    {% for note in user.notes %}
+    {% for note in current_user.notes %}
     <a href="#" class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-2">{{note.title}}</h5>
@@ -73,7 +73,7 @@ Title - Home
 ```html
 <!-- 메모 조회 영역 -->
 <div class="list-group">
-    {% for note in user.notes %}
+    {% for note in current_user.notes %}
     <a href="#" class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-2">{{note.title}}</h5>
@@ -198,7 +198,7 @@ def home():
             return redirect(url_for('views.home')) # 없으면 메모 계속 생성
 
 
-    return render_template('home.html', user=current_user)
+    return render_template('home.html')
 
 
 # 메모 삭제 기능
