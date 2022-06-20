@@ -45,7 +45,7 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(id):
-        return User.query.get(int(id))  # primary_key
+        return User.query.get(id)  # primary_key
 
     # Flask-Migrate 적용
     migrate = Migrate(app, db, render_as_batch=True)
