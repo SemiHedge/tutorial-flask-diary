@@ -19,7 +19,7 @@
     <div class="mb-3">
         <label for="InputEmail1" class="form-label">이메일</label>
         <input name="email" type="email" class="form-control" id="InputEmail1"
-            aria-describedby="emailHelp" placeholder="{{ user.email }}">
+            aria-describedby="emailHelp" placeholder="{{ current_user.email }}">
     </div>
 </fieldset>
 ```

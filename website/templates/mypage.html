@@ -13,8 +13,8 @@
                     <h2 align="center">MyPage</h2>
 
                     <!-- 프로필 이미지 영역 -->
-                    {% if user.image_path %}
-                    <img src="{{ url_for('static', filename=user.image_path)}}" alt="사용자프로필이미지"
+                    {% if current_user.image_path %}
+                    <img src="{{ url_for('static', filename=current_user.image_path)}}" alt="사용자프로필이미지"
                         class="rounded mx-auto d-block">
                     {% else %}
                     <img src="{{ url_for('static', filename='basic_profile.png')}}" alt="기본프로필이미지"
@@ -25,13 +25,13 @@
                     <div class="mb-3">
                         <label for="InputEmail1" class="form-label">이메일</label>
                         <input name="email" type="email" class="form-control" id="InputEmail1"
-                            aria-describedby="emailHelp" placeholder="{{ user.email }}">
+                            aria-describedby="emailHelp" placeholder="{{ current_user.email }}">
                     </div>
 
                     <div class="mb-3">
                         <label for="Nickname1" class="form-label">닉네임</label>
                         <input name="nickname" type="text" class="form-control" id="Nickname1"
-                            placeholder="{{ user.nickname }}">
+                            placeholder="{{ current_user.nickname }}">
                     </div>
 
                 </fieldset>

@@ -86,13 +86,13 @@ def create_app():
 
 {% block content %}
 <h2>나의 정보</h2>
-{{user.image_path}}
-<label for="">{{ user.nickname }}</label>
-<label for="">{{ user.email }}</label>
+{{ current_user.image_path }}
+<label for="">{{ current_user.nickname }}</label>
+<label for="">{{ current_user.email }}</label>
 <a href="/mypage/update"><button>정보 수정</button></a>
 {% endblock %}
 ```
-- {{user.image_path}} 가 None이 나온다.
+- {{ current_user.image_path }} 가 None이 나온다.
 
 ### 기본 프로필 /static에 넣기
 - `basic_profile.png`
@@ -113,14 +113,14 @@ def create_app():
 
 {% block content %}
 <h2>나의 정보</h2>
-{% if user.image_path %}
-    <img src="{{ url_for('static', filename=user.image_path)}}" alt="사용자프로필이미지">
+{% if current_user.image_path %}
+    <img src="{{ url_for('static', filename=current_user.image_path)}}" alt="사용자프로필이미지">
 {% else %}
     <img src="{{ url_for('static', filename='basic_profile.png')}}" alt="기본프로필이미지">
 {% endif %}
 
-<label for="">{{ user.nickname }}</label>
-<label for="">{{ user.email }}</label>
+<label for="">{{ current_user.nickname }}</label>
+<label for="">{{ current_user.email }}</label>
 <a href="/mypage/update"><button>정보 수정</button></a>
 {% endblock %}
 ```
@@ -157,8 +157,8 @@ def create_app():
                     <h2 align="center">MyPage</h2>
 
                     <!-- 프로필 이미지 영역 -->
-                    {% if user.image_path %}
-                    <img src="{{ url_for('static', filename=user.image_path)}}" alt="사용자프로필이미지"
+                    {% if current_user.image_path %}
+                    <img src="{{ url_for('static', filename=current_user.image_path)}}" alt="사용자프로필이미지"
                         class="rounded mx-auto d-block">
                     {% else %}
                     <img src="{{ url_for('static', filename='basic_profile.png')}}" alt="기본프로필이미지"
@@ -169,13 +169,13 @@ def create_app():
                     <div class="mb-3">
                         <label for="InputEmail1" class="form-label">이메일</label>
                         <input name="email" type="email" class="form-control" id="InputEmail1"
-                            aria-describedby="emailHelp" placeholder="{{ user.email }}">
+                            aria-describedby="emailHelp" placeholder="{{ current_user.email }}">
                     </div>
 
                     <div class="mb-3">
                         <label for="Nickname1" class="form-label">닉네임</label>
                         <input name="nickname" type="text" class="form-control" id="Nickname1"
-                            placeholder="{{ user.nickname }}">
+                            placeholder="{{ current_user.nickname }}">
                     </div>
 
                 </fieldset>
@@ -211,8 +211,8 @@ def create_app():
                 <h2 align="center">MyPage 수정</h2>
 
                     <!-- 프로필 이미지 영역 -->
-                    {% if user.image_path %}
-                    <img src="{{ url_for('static', filename=user.image_path)}}" alt="사용자프로필이미지"
+                    {% if current_user.image_path %}
+                    <img src="{{ url_for('static', filename=current_user.image_path)}}" alt="사용자프로필이미지"
                         class="rounded mx-auto d-block">
                     {% else %}
                     <img src="{{ url_for('static', filename='basic_profile.png')}}" alt="기본프로필이미지"
@@ -227,13 +227,13 @@ def create_app():
                     <div class="mb-3">
                         <label for="InputEmail1" class="form-label">이메일</label>
                         <input name="email" type="email" class="form-control" id="InputEmail1"
-                            aria-describedby="emailHelp" placeholder="{{ user.email }}">
+                            aria-describedby="emailHelp" placeholder="{{ current_user.email }}">
                     </div>
 
                     <div class="mb-3">
                         <label for="Nickname1" class="form-label">닉네임</label>
                         <input name="nickname" type="text" class="form-control" id="Nickname1"
-                            placeholder="{{ user.nickname }}">
+                            placeholder="{{ current_user.nickname }}">
                     </div>
 
                 <button type="submit" class="btn btn-primary">정보 수정 제출</button>
